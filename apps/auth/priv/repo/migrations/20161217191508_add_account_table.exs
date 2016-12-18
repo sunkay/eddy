@@ -4,7 +4,7 @@ defmodule Auth.Repo.Migrations.CreateAccounts do
   def change do
     create table(:auth_accounts) do
       add :email, :string
-      add :password_hash :string
+      add :password_hash, :string
 
       timestamps()
     end

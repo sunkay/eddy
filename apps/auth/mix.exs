@@ -11,7 +11,8 @@ defmodule Auth.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps,
+     aliases: aliases]
   end
 
   # Configuration for the OTP application
@@ -39,5 +40,11 @@ defmodule Auth.Mixfile do
     [{:ecto, "~> 2.0.6"},
      {:postgrex, ">= 0.0.0"},
      {:comeonin, "~> 2.5"}]
+  end
+
+  defp aliases do
+    ["ecto.setup": ["ecto.create", "ecto.migrate", "ecto.seed"],
+     "ecto.seed": ["run apps/bank/priv/repo/seeds.exs"],
+     "ecto.reset": ["ecto.drop", "ecto.setup"]]
   end
 end

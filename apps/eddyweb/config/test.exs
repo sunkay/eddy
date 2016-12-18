@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :eddyweb, Eddyweb.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "sunil",
+  password: "",
   database: "eddyweb_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

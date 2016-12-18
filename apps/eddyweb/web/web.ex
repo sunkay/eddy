@@ -36,6 +36,8 @@ defmodule Eddyweb.Web do
 
       import Eddyweb.Router.Helpers
       import Eddyweb.Gettext
+
+      import Eddyweb.Authentication, only: [require_authenticated: 2]
     end
   end
 

@@ -5,7 +5,7 @@ config :auth, Auth.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "sunil",
   password: "",
-  database: "eddyweb_#{Mix.env}",
+  database: "eddyweb_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

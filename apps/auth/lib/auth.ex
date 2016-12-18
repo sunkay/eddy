@@ -16,6 +16,10 @@ defmodule Auth do
     do_sign_in(account, password)
   end
 
+  def find_user(id) do
+    Repo.get(Account, id)
+  end
+
   defp do_sign_in(%Account{password_hash: password_hash} = account, password) do
     if Comeonin.Bcrypt.checkpw(password, password_hash) do
       {:ok, account}
