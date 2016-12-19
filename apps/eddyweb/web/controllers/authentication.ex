@@ -23,9 +23,9 @@ defmodule Eddyweb.Authentication do
   end
 
   def require_authenticated(conn, _opts) do
-     conn
-     |> Phoenix.Controller.put_flash(:alert, "You must be signed in to access that page")
-     |> Phoenix.Controller.redirect(to: "/sign_in")
+     conn = conn
+     |> Phoenix.Controller.put_flash(:error, "You must be signed in to access that page")
+     |> Phoenix.Controller.redirect(to: "/sessions/signin")
      |> halt()
   end
 

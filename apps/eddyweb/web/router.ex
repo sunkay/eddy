@@ -14,16 +14,21 @@ defmodule Eddyweb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Eddyweb do
+  scope "/sessions", Eddyweb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/users", SessionController, :index
     get "/register", SessionController, :new
     post "/register", SessionController, :create
     get "/signin", SessionController, :signin_new
     post "/signin", SessionController, :signin_create
     get "/signout", SessionController, :signout
+  end
 
+  scope "/", Eddyweb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.

@@ -4,7 +4,12 @@ defmodule Eddyweb.SessionController do
 
   require Logger
 
-  # plug :require_authenticated when action in [:index]
+  plug :require_authenticated when action in [:index]
+
+  def index(conn, _params) do
+    users = Auth.Repo.all(Auth.Account)
+    render conn, "index.html", users: users
+  end
 
   def new(conn, params) do
     changeset = Auth.Account.build(params)
