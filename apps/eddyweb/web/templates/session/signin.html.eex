@@ -1,7 +1,7 @@
 <div class="container">
-  <h2>Registration</h2>
+  <h2>Login</h2>
 
-  <%= form_for @changeset, session_path(@conn, :create), [as: :register], fn f -> %>
+  <%= form_for @changeset, session_path(@conn, :signin_create), [as: :signin], fn f -> %>
     <%= if @changeset.action do %>
       <div class="alert alert-danger">
         <p>Oops, something went wrong! Please check the errors below.</p>
@@ -18,12 +18,6 @@
       <%= label f, :password, class: "control-label" %>
       <%= text_input f, :password, class: "form-control" %>
       <%= error_tag f, :password %>
-    </div>
-
-    <div class="form-group">
-      <%= label f, :confirm_password, class: "control-label" %>
-      <%= text_input f, :confirm, class: "form-control" %>
-      <%= error_tag f, :confirm %>
     </div>
 
     <div class="form-group">

@@ -20,6 +20,8 @@ defmodule Eddyweb.Router do
     get "/", PageController, :index
     get "/register", SessionController, :new
     post "/register", SessionController, :create
+    get "/signin", SessionController, :signin_new
+    post "/signin", SessionController, :signin_create
 
   end
 
