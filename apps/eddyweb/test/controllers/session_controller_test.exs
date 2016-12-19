@@ -49,5 +49,24 @@ defmodule Eddyweb.SessionControllerTest do
     assert html_response(conn, 200) =~ "<h2>Login</h2>"
   end
 
+  test "unauthenticated access", %{conn: conn} do
+    conn = get conn, session_path(conn, :index)
+    assert conn.status == 302
+    assert conn.halted
+    assert redirected_to(conn) == session_path(conn, :signin_new)
+  end
+
+  test "authenticated access", %{conn: _conn} do
+    {:ok, _account} = Auth.register(@valid_attrs)
+
+    conn = build_conn()
+    conn = post conn, session_path(conn, :signin_create), signin: @valid_attrs
+    assert redirected_to(conn) == page_path(conn, :index)
+
+    conn = get conn, session_path(conn, :index)
+    assert conn.status == 200
+    assert conn.resp_body =~ "<h2>Listing Users</h2>"
+
+  end
 
 end

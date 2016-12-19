@@ -50,9 +50,10 @@ defmodule Eddyweb.SessionController do
 
   defp handle_signin(conn, {:ok, account}) do
     conn = Eddyweb.Authentication.signin(conn, account)
+    path = get_session(conn, :redirect_url) || page_path(conn, :index)
     conn
       |> put_flash(:info, "Welcome back")
-      |> redirect(to: page_path(conn, :index))
+      |> redirect(to: path)
   end
 
   defp handle_signin(conn, {:error, _}) do
