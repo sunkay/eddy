@@ -1,6 +1,6 @@
 defmodule Eddyweb.SessionControllerTest do
   use Eddyweb.ConnCase
-  import Logger
+  #import Logger
 
   @valid_attrs %{email: "x@y.com", password: "121212"}
   @invalid_attrs %{email: "x@y.com", password: ""}
@@ -35,14 +35,14 @@ defmodule Eddyweb.SessionControllerTest do
   end
 
   test "/signin create :success", %{conn: conn} do
-    {:ok, account} = Auth.register(@valid_attrs)
+    {:ok, _account} = Auth.register(@valid_attrs)
 
     conn = post conn, "/signin", signin: @valid_attrs
     assert redirected_to(conn) == page_path(conn, :index)
   end
 
   test "/signin create :failure", %{conn: conn} do
-    {:ok, account} = Auth.register(@valid_attrs)
+    {:ok, _account} = Auth.register(@valid_attrs)
 
     conn = post conn, "/signin", signin: @invalid_attrs
     assert html_response(conn, 200) =~ "<h2>Login</h2>"

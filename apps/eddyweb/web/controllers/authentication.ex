@@ -11,6 +11,7 @@ defmodule Eddyweb.Authentication do
 
   def call(conn, _opts) do
      id = get_session(conn, :user_id)
+
      user = if id, do: Auth.find_user(id)
 
      conn
@@ -28,4 +29,15 @@ defmodule Eddyweb.Authentication do
      |> halt()
   end
 
+  def signin(conn, user) do
+     conn
+     |> put_session(:user_id, user.id)
+     |> assign(:current_user, user)
+     |> configure_session(renew: true)
+  end
+
+  def signout(conn) do
+    conn
+    |> configure_session(drop: true)
+  end
 end

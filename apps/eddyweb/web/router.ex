@@ -22,6 +22,7 @@ defmodule Eddyweb.Router do
     post "/register", SessionController, :create
     get "/signin", SessionController, :signin_new
     post "/signin", SessionController, :signin_create
+    get "/signout", SessionController, :signout
 
   end
 
