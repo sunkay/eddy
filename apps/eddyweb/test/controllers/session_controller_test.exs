@@ -2,8 +2,8 @@ defmodule Eddyweb.SessionControllerTest do
   use Eddyweb.ConnCase
   #import Logger
 
-  @valid_attrs %{email: "x@y.com", password: "121212"}
-  @invalid_attrs %{email: "x@y.com", password: ""}
+  @valid_attrs %{email: "x@y.com", password: "121212", confirm: "121212"}
+  @invalid_attrs %{email: "x@y.com", password: "", confirm: "12"}
 
   setup do
      # Explicitly get a connection before each test

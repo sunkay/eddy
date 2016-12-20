@@ -23,6 +23,8 @@ defmodule Eddyweb.Router do
     get "/signin", SessionController, :signin_new
     post "/signin", SessionController, :signin_create
     get "/signout", SessionController, :signout
+    #get "/changepwd", SessionController, :chgpwd_new
+    #post "/changepwd", SessionController, :chgpwd_create
   end
 
   scope "/", Eddyweb do
