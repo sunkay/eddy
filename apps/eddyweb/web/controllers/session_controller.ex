@@ -4,7 +4,7 @@ defmodule Eddyweb.SessionController do
 
   require Logger
 
-  plug :require_authenticated when action in [:index]
+  plug :require_authenticated when action in [:index, :chgpwd_new, :chgpwd_create]
 
   def index(conn, _params) do
     users = Auth.Repo.all(Auth.Account)
@@ -56,7 +56,7 @@ defmodule Eddyweb.SessionController do
   def chgpwd_create(conn, %{"chgpwd" => params}) do
     changeset = chgpwd_changeset(params)
     if changeset.valid? do
-      %{"old_password" => old, "password" => new, "confirm" => confirm} = params
+      %{"old_password" => old, "password" => new} = params
       email = conn.assigns.current_user.email
       handle_chgpwd(conn, Auth.change_password(email, old, new))
     else
@@ -78,7 +78,7 @@ defmodule Eddyweb.SessionController do
     |> redirect(to: session_path(conn, :signin_new))
   end
 
-  defp handle_chgpwd(conn, {:ok, account}) do
+  defp handle_chgpwd(conn, {:ok, _account}) do
     conn
       |> put_flash(:info, "Successfully changed password")
       |> redirect(to: page_path(conn, :index))

@@ -4,6 +4,8 @@ defmodule Eddyweb.SessionControllerTest do
 
   @valid_attrs %{email: "x@y.com", password: "121212", confirm: "121212"}
   @invalid_attrs %{email: "x@y.com", password: "", confirm: "12"}
+  @valid_chgpwd_attrs %{old_password: "121212", password: "12", confirm: "12"}
+  @invalid_chgpwd_attrs %{old_password: "1212", password: "12", confirm: "12"}
 
   setup do
      # Explicitly get a connection before each test
@@ -66,6 +68,21 @@ defmodule Eddyweb.SessionControllerTest do
     conn = get conn, session_path(conn, :index)
     assert conn.status == 200
     assert conn.resp_body =~ "<h2>Listing Users</h2>"
+  end
+
+  test "change password", %{conn: _conn} do
+    {:ok, _account} = Auth.register(@valid_attrs)
+
+    conn = build_conn()
+    conn = post conn, session_path(conn, :signin_create), signin: @valid_attrs
+
+    conn = post conn, session_path(conn, :chgpwd_create), chgpwd: @valid_chgpwd_attrs
+    assert conn.status == 302
+    assert redirected_to(conn) == page_path(conn, :index)
+
+    conn = post conn, session_path(conn, :chgpwd_create), chgpwd: @invalid_chgpwd_attrs
+    assert conn.status == 302
+    assert redirected_to(conn) == session_path(conn, :chgpwd_new)
 
   end
 
