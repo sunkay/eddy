@@ -16,6 +16,18 @@ defmodule Auth do
     do_sign_in(account, password)
   end
 
+  def change_password(email, old, new) do
+    account = Repo.get_by(Account, email: email)
+    password_hash = account.password_hash
+    if Comeonin.Bcrypt.checkpw(old, password_hash) do
+      new_hash = Comeonin.Bcrypt.hashpwsalt(new)
+      Repo.update_all(Account, set: [password_hash: new_hash])
+      {:ok, account}
+    else
+      {:error}
+    end
+  end
+
   def find_user(id) do
     Repo.get(Account, id)
   end

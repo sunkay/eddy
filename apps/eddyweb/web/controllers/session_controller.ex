@@ -48,6 +48,22 @@ defmodule Eddyweb.SessionController do
     redirect(conn, to: page_path(conn, :index))
   end
 
+  def chgpwd_new(conn, _params) do
+    changeset = chgpwd_changeset()
+    render conn, "chgpwd.html", changeset: changeset
+  end
+
+  def chgpwd_create(conn, %{"chgpwd" => params}) do
+    changeset = chgpwd_changeset(params)
+    if changeset.valid? do
+      %{"old_password" => old, "password" => new, "confirm" => confirm} = params
+      email = conn.assigns.current_user.email
+      handle_chgpwd(conn, Auth.change_password(email, old, new))
+    else
+      render conn, "chgpwd.html", changeset: %{changeset|action: :insert}
+    end
+  end
+
   defp handle_signin(conn, {:ok, account}) do
     conn = Eddyweb.Authentication.signin(conn, account)
     path = get_session(conn, :redirect_url) || page_path(conn, :index)
@@ -62,6 +78,18 @@ defmodule Eddyweb.SessionController do
     |> redirect(to: session_path(conn, :signin_new))
   end
 
+  defp handle_chgpwd(conn, {:ok, account}) do
+    conn
+      |> put_flash(:info, "Successfully changed password")
+      |> redirect(to: page_path(conn, :index))
+  end
+
+  defp handle_chgpwd(conn, {:error}) do
+    conn
+      |> put_flash(:info, "invalid credentials")
+      |> redirect(to: session_path(conn, :chgpwd_new))
+  end
+
   defp signin_changeset(params \\ %{}) do
     data = %{}
     types = %{email: :string, password: :string}
@@ -74,5 +102,27 @@ defmodule Eddyweb.SessionController do
 
     changeset
     end
+
+    defp chgpwd_changeset(params \\ %{}) do
+      data = %{}
+      types = %{old_password: :string, password: :string, confirm: :string}
+
+      changeset =
+        {data, types}
+        |> cast(params, Map.keys(types))
+        |> validate_required([:old_password, :password, :confirm])
+        |> validate_confirm()
+
+      changeset
+    end
+
+    defp validate_confirm(%{changes: %{password: password, confirm: confirm}} = changeset) do
+      if password != confirm do
+        add_error(changeset, :confirm, "password confirmation failed")
+      else
+        changeset
+      end
+    end
+    defp validate_confirm(%{changes: %{}} = changeset), do: changeset
 
 end

@@ -25,7 +25,7 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <%= if @current_user do %>
-            <li><%= link "Change Password", to: session_path(@conn, :new) %></li>
+            <li><%= link "Change Password", to: session_path(@conn, :chgpwd_new) %></li>
             <li><%= link "Logout", to: session_path(@conn, :signout) %></li>
           <% else %>
             <li><%= link "Register", to: session_path(@conn, :new) %></li>
