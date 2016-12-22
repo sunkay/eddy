@@ -5,6 +5,8 @@ defmodule Auth.Account do
   schema "auth_accounts" do
     field :email, :string
     field :password_hash, :string
+    field :provider, :string
+    field :token, :string
     field :password, :string, virtual: true
     field :confirm, :string, virtual: true
 
@@ -23,6 +25,12 @@ defmodule Auth.Account do
     |> validate_confirm_password()
     |> unique_constraint(:email)
     |> put_password_hash()
+  end
+
+  def oAuth_changeset(account, params \\ %{}) do
+    cast(account, params, ~w(email provider token))
+    |> validate_required([:email, :provider])
+    |> unique_constraint(:email)
   end
 
   defp put_password_hash(%{changes: %{password: password}} = changeset) do

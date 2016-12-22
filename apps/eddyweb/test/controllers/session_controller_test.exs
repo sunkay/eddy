@@ -83,7 +83,6 @@ defmodule Eddyweb.SessionControllerTest do
     conn = post conn, session_path(conn, :chgpwd_create), chgpwd: @invalid_chgpwd_attrs
     assert conn.status == 302
     assert redirected_to(conn) == session_path(conn, :chgpwd_new)
-
   end
 
 end

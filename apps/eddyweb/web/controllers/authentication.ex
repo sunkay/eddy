@@ -26,7 +26,7 @@ defmodule Eddyweb.Authentication do
      conn = conn
      |> put_session(:redirect_url, conn.request_path)
      |> Phoenix.Controller.put_flash(:error, "You must be signed in to access: #{conn.request_path}")
-     |> Phoenix.Controller.redirect(to: "/sessions/signin")
+     |> Phoenix.Controller.redirect(to: "/auth/signin")
      |> halt()
   end
 

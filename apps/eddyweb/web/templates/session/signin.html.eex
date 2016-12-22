@@ -1,6 +1,12 @@
 <div class="container">
   <h2>Login</h2>
 
+  <%= link "Login with Github", to: session_path(@conn, :request, "github"), class: "waves-effect waves-light btn" %>
+  <%= link "Login with Facebook", to: session_path(@conn, :request, "facebook", scope: "email"), class: "waves-effect waves-light btn" %>
+  <%= link "Login with Google", to: session_path(@conn, :request, "google"), class: "waves-effect waves-light btn" %>
+
+  <hr />
+
   <%= form_for @changeset, session_path(@conn, :signin_create), [as: :signin], fn f -> %>
     <%= if @changeset.action do %>
       <div class="alert alert-danger">

@@ -11,6 +11,17 @@ defmodule Auth do
     |> Repo.insert()
   end
 
+  def oAuth_register(params) do
+    %{email: email} = params
+    account = Repo.get_by(Account, email: email)
+    if account do
+      {:ok, account}
+    else
+      Account.oAuth_changeset(%Account{}, params)
+      |> Repo.insert()
+    end
+  end
+
   def sign_in(email, password) do
     account = Repo.get_by(Account, email: email)
     do_sign_in(account, password)

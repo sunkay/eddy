@@ -14,7 +14,7 @@ defmodule Eddyweb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/sessions", Eddyweb do
+  scope "/auth", Eddyweb do
     pipe_through :browser # Use the default browser stack
 
     get "/users", SessionController, :index
@@ -25,6 +25,12 @@ defmodule Eddyweb.Router do
     get "/signout", SessionController, :signout
     get "/changepwd", SessionController, :chgpwd_new
     post "/changepwd", SessionController, :chgpwd_create
+
+    # oAuth
+    get "/:provider", SessionController, :request
+    get "/:provider/callback", SessionController, :oAuth_callback
+    post "/:provider/callback", SessionController, :oAuth_callback
+
   end
 
   scope "/", Eddyweb do

@@ -4,6 +4,7 @@ defmodule Eddyweb.SessionController do
 
   require Logger
 
+  plug Ueberauth
   plug :require_authenticated when action in [:index, :chgpwd_new, :chgpwd_create]
 
   def index(conn, _params) do
@@ -26,6 +27,27 @@ defmodule Eddyweb.SessionController do
       {:error, changeset} ->
         render(conn, "register.html", changeset: changeset)
     end
+  end
+
+  def oAuth_callback(
+    %{assigns: %{ueberauth_auth: auth}} = conn,
+    %{"provider" => provider} = params)
+  do
+    email = auth.info.email
+    # if Email is nil -> use name field & create a dummy email
+    if auth.info.email == nil do
+      name = auth.info.name
+      email = Enum.join(String.split(name, " ") ++ ["@#{provider}.com"])
+      Logger.warn "email was nil, updated to: #{email}"
+    end
+    user_params = %{provider: provider, email: email, token: auth.credentials.token}
+    handle_signin(conn, Auth.oAuth_register(user_params))
+  end
+
+  def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
+    conn
+    |> put_flash(:error, "Failed to authenticate.")
+    |> redirect(to: session_path(conn, :signin_new))
   end
 
   def signin_new(conn, _params) do
@@ -72,7 +94,8 @@ defmodule Eddyweb.SessionController do
       |> redirect(to: path)
   end
 
-  defp handle_signin(conn, {:error, _}) do
+  defp handle_signin(conn, {:error, changeset}) do
+    Logger.warn "changeset: #{inspect(changeset)}"
     conn
     |> put_flash(:error, "Invalid login credentials")
     |> redirect(to: session_path(conn, :signin_new))
