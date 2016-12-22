@@ -6,9 +6,10 @@ use Mix.Config
 config :logger, level: :info
 
 ## Repo
-config :auth, ecto_repos: [Auth.Repo]
+config :vroom, ecto_repos: [Vroom.Repo]
 
 import_config "#{Mix.env}.exs"
+
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -18,11 +19,11 @@ import_config "#{Mix.env}.exs"
 
 # You can configure for your application as:
 #
-#     config :auth, key: :value
+#     config :vroom, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:auth, :key)
+#     Application.get_env(:vroom, :key)
 #
 # Or configure a 3rd-party app:
 #

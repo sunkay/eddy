@@ -31,7 +31,7 @@ defmodule Eddyweb.SessionController do
 
   def oAuth_callback(
     %{assigns: %{ueberauth_auth: auth}} = conn,
-    %{"provider" => provider} = params)
+    %{"provider" => provider})
   do
     email = auth.info.email
     # if Email is nil -> use name field & create a dummy email

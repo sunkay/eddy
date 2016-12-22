@@ -2,5 +2,13 @@
   <h2><%= gettext "Welcome to %{name}", name: "Eddy!" %></h2>
   <p class="lead">NIWIGTB</p>
 
-  <%= link "Users", to: session_path(@conn, :index) %>
+  <ul>
+    <li>
+      <%= link "Users", to: session_path(@conn, :index) %>
+    </li>
+    <li>
+      <%= link "Videos", to: video_path(@conn, :index) %>      
+    </li>
+  </ul>
+
 </div>

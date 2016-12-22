@@ -23,7 +23,7 @@ defmodule Eddyweb.Mixfile do
   def application do
     [mod: {Eddyweb, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth, :ueberauth_github, :ueberauth_facebook, :ueberauth_google, :auth]]
+                    :phoenix_ecto, :postgrex, :ueberauth, :ueberauth_github, :ueberauth_facebook, :ueberauth_google, :auth, :vroom]]
   end
 
   # Specifies which paths to compile per environment.
@@ -46,7 +46,8 @@ defmodule Eddyweb.Mixfile do
      {:ueberauth_github, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.5"},
      {:ueberauth_google, "~> 0.4"},
-     {:auth, in_umbrella: true}]
+     {:auth, in_umbrella: true},
+     {:vroom, in_umbrella: true}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
