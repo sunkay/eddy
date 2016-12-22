@@ -1,5 +1,4 @@
 <div class="container">
-  <h2>New Video</h2>
 
   <%= form_for @changeset, @action, [as: :video], fn f -> %>
     <%= if @changeset.action do %>

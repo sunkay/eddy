@@ -37,7 +37,7 @@ defmodule Eddyweb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/videos", VideoController, only: [:index, :new, :create, :show, :edit, :delete, :update]
+    resources "/videos", VideoController
   end
 
   # Other scopes may use custom stacks.
