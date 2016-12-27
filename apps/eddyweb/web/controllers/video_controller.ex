@@ -4,7 +4,7 @@ defmodule Eddyweb.VideoController do
 
   alias Vroom.Video
 
-  #plug :require_authenticated when action in [:index]
+  plug :require_authenticated when action in [:new, :create]
 
   def index(conn, _params) do
     videos = Vroom.videos()
