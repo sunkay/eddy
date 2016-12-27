@@ -17,6 +17,8 @@ defmodule Eddyweb.VideoController do
   end
 
   def create(conn, %{"video" => params}) do
+    params = Map.put(params, "user_id", get_session(conn, :user_id))
+    Logger.warn "#{inspect(params)}"
     conn
     |> handle_add_video(Vroom.add_video(params))
   end

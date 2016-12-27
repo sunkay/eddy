@@ -7,6 +7,7 @@
         <th>Name</th>
         <th>URL</th>
         <th>Description</th>
+        <th>User</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
         <td><%= video.name %></td>
         <td><%= video.url %></td>
         <td><%= video.description %></td>
+        <td><%= video.user_id %></td>
         <td class="text-right">
           <%= link "Show", to: video_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
           <%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %>

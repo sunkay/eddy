@@ -6,8 +6,11 @@ defmodule Vroom.Repo.Migrations.AddVideosTable do
       add :name, :string
       add :url, :string
       add :description, :string
+      add :user_id, :id
 
       timestamps()
     end
+
+    create unique_index(:videos, [:name])
   end
 end
