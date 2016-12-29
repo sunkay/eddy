@@ -7,6 +7,11 @@ defmodule Eddyweb.VideoController do
   plug :require_authenticated when action in [:new, :create]
 
   def index(conn, _params) do
+    videos = Vroom.videos(get_session(conn, :user_id))
+    render conn, "index.html", videos: videos
+  end
+
+  def all_videos(conn, _params) do
     videos = Vroom.videos()
     render conn, "index.html", videos: videos
   end

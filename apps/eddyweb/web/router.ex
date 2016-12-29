@@ -38,6 +38,7 @@ defmodule Eddyweb.Router do
 
     get "/", PageController, :index
     resources "/videos", VideoController
+    get "/all-videos", VideoController, :all_videos
   end
 
   # Other scopes may use custom stacks.

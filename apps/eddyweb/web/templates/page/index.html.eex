@@ -7,8 +7,13 @@
       <%= link "Users", to: session_path(@conn, :index) %>
     </li>
     <li>
-      <%= link "Videos", to: video_path(@conn, :index) %>      
+      <%= link "Videos", to: video_path(@conn, :index) %>
     </li>
+
+    <li>
+      <%= link "All Videos", to: video_path(@conn, :all_videos) %>      
+    </li>
+
   </ul>
 
 </div>
