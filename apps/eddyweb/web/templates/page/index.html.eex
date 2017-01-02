@@ -1,6 +1,6 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Eddy!" %></h2>
-  <p class="lead">NIWIGTB</p>
+  <h2><%= gettext "Welcome to %{name}", name: if @current_user, do: @current_user.email, else: "Eddy!" %></h2>
+  <p class="lead">edu</p>
 
   <ul>
     <li>
@@ -11,7 +11,7 @@
     </li>
 
     <li>
-      <%= link "All Videos", to: video_path(@conn, :all_videos) %>      
+      <%= link "All Videos", to: video_path(@conn, :all_videos) %>
     </li>
 
   </ul>

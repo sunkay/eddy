@@ -2,9 +2,10 @@ defmodule Eddyweb.VideoController do
   use Eddyweb.Web, :controller
   require Logger
 
-  alias Vroom.Video
+  alias Vroom.{Video, Category}
 
   plug :require_authenticated when action in [:new, :create]
+  plug :load_categories when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
     videos = Vroom.videos(get_session(conn, :user_id))
@@ -71,6 +72,15 @@ defmodule Eddyweb.VideoController do
   defp handle_update_video(conn, {:error, changeset}) do
     conn
     |> render("edit.html", changeset: changeset)
+  end
+
+  defp load_categories(conn, _) do
+    query =
+      Category
+      |> Category.alphabetical
+      |> Category.names_and_ids
+    categories = Vroom.Repo.all query
+    assign(conn, :categories, categories)
   end
 
 end

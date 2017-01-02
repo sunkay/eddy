@@ -7,12 +7,13 @@ defmodule Vroom.Video do
     field :url, :string
     field :description, :string
     field :user_id, :id
+    belongs_to :category, Vroom.Category
 
     timestamps()
   end
 
   def changeset(video, params \\ %{}) do
-    cast(video, params, ~w(name url description user_id))
+    cast(video, params, ~w(name url description user_id category_id))
     |> validate_required([:name, :url])
   end
 

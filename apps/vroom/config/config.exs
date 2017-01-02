@@ -3,7 +3,7 @@
 use Mix.Config
 
 ## Logger
-config :logger, level: :warn
+config :logger, level: :info
 
 ## Repo
 config :vroom, ecto_repos: [Vroom.Repo]
