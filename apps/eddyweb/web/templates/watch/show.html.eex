@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Title: <%= @video.name %></h2>
+
+  <div class="row">
+    <div class="col s8">
+      <span>Video content</span>
+    </div>
+    <div class="col s4">
+      <div class="section">
+        <h5>Annotations</h5>
+        <p>
+          stuff
+        </p>
+      </div>
+      <div class="section">
+        <h5>Comments</h5>
+        <p>
+          stuff
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <%= link "Back", to: video_path(@conn, :index) %>
+</div>
