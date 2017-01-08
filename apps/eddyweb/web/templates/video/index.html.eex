@@ -1,7 +1,7 @@
-<div class="container">
+<div >
   <h2>Listing Videos</h2>
 
-  <table class="table">
+  <table class="table highlight responsive-table video-table">
     <thead>
       <tr>
         <th>Name</th>
@@ -13,14 +13,20 @@
     <tbody>
   <%= for video <- @videos do %>
       <tr>
+        <td><%= video.user_id %></td>
         <td><%= video.name %></td>
         <td><%= video.url %></td>
-        <td><%= video.description %></td>
-        <td><%= video.user_id %></td>
-        <td class="text-right">
-          <%= link "Watch", to: watch_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
-          <%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %>
-          <%= link "Delete", to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <td class="video-cell"><%= video.description %></td>
+        <td class="highlight">
+          <%= link to: watch_path(@conn, :show, video), class: "btn btn-default btn-xs" do %>
+            <i class="material-icons">remove_red_eye</i>
+          <% end %>
+          <%= link to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" do %>
+            <i class="material-icons">mode_edit</i>
+          <% end %>
+          <%= link to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" do %>
+            <i class="material-icons">mode_edit</i>
+          <% end %>
         </td>
 
       </tr>

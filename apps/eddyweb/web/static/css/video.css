@@ -1,0 +1,11 @@
+#msg-container {
+  min-height: 80px
+}
+
+.video-table {
+  table-layout: fixed;
+}
+
+.video-cell {
+  word-wrap: break-word;
+}
