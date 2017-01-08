@@ -2,10 +2,15 @@
   min-height: 80px
 }
 
-.video-table {
+.table-fixed {
   table-layout: fixed;
 }
 
-.video-cell {
+.cell-word-wrap {
   word-wrap: break-word;
+}
+
+.no-container-margins {
+  margin-left: 10px;
+  margin-right: 10px;
 }

@@ -1,22 +1,23 @@
-<div >
+<div class="no-container-margins">
   <h2>Listing Videos</h2>
 
-  <table class="table highlight responsive-table video-table">
+  <table class="table highlight responsive-table table-fixed">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>URL</th>
-        <th>Description</th>
-        <th>User</th>
+        <th width="10%">User</th>
+        <th width="20%">Name</th>
+        <th width="20%">URL</th>
+        <th width="40%">Description</th>
+        <th width="10%">Action</th>
       </tr>
     </thead>
     <tbody>
   <%= for video <- @videos do %>
-      <tr>
+      <tr class="cell-word-wrap">
         <td><%= video.user_id %></td>
         <td><%= video.name %></td>
         <td><%= video.url %></td>
-        <td class="video-cell"><%= video.description %></td>
+        <td><%= video.description %></td>
         <td class="highlight">
           <%= link to: watch_path(@conn, :show, video), class: "btn btn-default btn-xs" do %>
             <i class="material-icons">remove_red_eye</i>
