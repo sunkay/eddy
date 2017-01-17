@@ -17,11 +17,13 @@ let Player = {
       videoId: playerId,
       events: {
         "onReady": (event => onReady(event) ),
-        //"onStateChange": (event => this.onPlayerStateChangeEvent(event))
+        "onStateChange": (event => this.onPlayerStateChangeEvent(event))
       }
     })
   },
 
   onPlayerStateChangeEvent(event){},
+  getCurrentTime() { return Math.floor(this.player.getCurrentTime() * 1000) },
+
 }
 export default Player

@@ -1,5 +1,12 @@
-#msg-container {
-  min-height: 80px
+
+div#msg-container.annotations {
+  color: white;
+  height: 120px;
+  overflow-y: scroll;
+}
+
+.annotations-text {
+  color: white;
 }
 
 .table-fixed {

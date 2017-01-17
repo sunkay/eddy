@@ -11,7 +11,6 @@
        <div class="card-content white-text">
          <span class="card-title">Annotations</span>
          <div id="msg-container" class="annotations">
-           <p>annotations</p>
          </div>
        </div>
       </div>

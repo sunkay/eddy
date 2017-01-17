@@ -15,6 +15,7 @@ defmodule Eddyweb.Authentication do
      user = if id, do: Auth.find_user(id)
 
      conn
+     |> put_user_token(user)
      |> assign(:current_user, user)
   end
 
@@ -33,6 +34,7 @@ defmodule Eddyweb.Authentication do
   def signin(conn, user) do
      conn
      |> put_session(:user_id, user.id)
+     |> put_user_token(user)
      |> assign(:current_user, user)
      |> configure_session(renew: true)
   end
@@ -40,5 +42,12 @@ defmodule Eddyweb.Authentication do
   def signout(conn) do
     conn
     |> configure_session(drop: true)
+  end
+
+  defp put_user_token(conn, user) do
+    token = Phoenix.Token.sign(conn, "user socket", user.id)
+
+    conn
+    |> assign(:user_token, token)
   end
 end
